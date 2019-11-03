@@ -2,7 +2,7 @@
 var http = require('http');
 // 別のファイルの設定を読み込む（用途の例：外部ファイルに設定を書き込んで、読み込みしたい場合）
 // .jsは省略できる（./は同じディレクトリの意味）
-var settings = require('./settings.js');
+var settings = require('./settings');
 // ファイルが読み込まれていることを確認する
 console.log(settings);
 // サーバーを作る
@@ -13,7 +13,7 @@ var server = http.createServer();
 server.on('request', function(req,res){
     res.writeHead(200, {'Content-Type':'text/plain'});
     // 好きなものを渡す
-    res.write('hello world!!!');
+    res.write('hello world');
     // レスポンスは必ず最後にendにする
     res.end();
 });
