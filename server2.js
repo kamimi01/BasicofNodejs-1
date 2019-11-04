@@ -33,7 +33,7 @@ server.on('request', function(req,res){
         // フォームからデータが送られてくる時はreadableと言うイベントで取ることができる
         req.on("readable", function(){
             // その間に、req.dataに読みこんだデータを追加していく
-            req.data += read.read();
+            req.data += req.read();
         });
         // 全てのデータの受信が終わったら、endと言うイベントにする
         req.on("end", function() {
