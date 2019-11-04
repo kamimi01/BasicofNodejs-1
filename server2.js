@@ -37,7 +37,10 @@ server.on('request', function(req,res){
         });
         // 全てのデータの受信が終わったら、endと言うイベントにする
         req.on("end", function() {
-        // 
+            // フォームからのデータを受信し終わった後にクエリのデータを扱う
+            var query = qs.parse(req.data);
+            posts.push(query.name);
+            renderForm(posts,res);
         })
     } else {
         // 投稿されていない時はフォームを表示する必要がある
