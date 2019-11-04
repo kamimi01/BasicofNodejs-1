@@ -31,9 +31,11 @@ server.on('request', function(req,res){
         // dataの初期化
         req.data = "";
         // フォームからデータが送られてくる時はreadableと言うイベントで取ることができる
-        req.on("readable", function(){
+        // どこかのnodeバージョンから、readbleイベントの終了時にnullが返されるようになり、それを文字列として結合してしまっているために発生
+        req.on("data", function(chunk){
             // その間に、req.dataに読みこんだデータを追加していく
-            req.data += req.read();
+            // コールバック関数の引数を結合していく
+            req.data += chunk;
         });
         // 全てのデータの受信が終わったら、endと言うイベントにする
         req.on("end", function() {
