@@ -24,10 +24,33 @@ MongoClient.connect("mongodb://"+settings.host+"/"+settings.db, connectOption, f
             {name: "kami", score: 80},
             {name: "yuji", socre: 60}
         ];
+        /*
         // コレクションにデータを入れる
         // insertOneメソッド：１つのドキュメントを挿入する
         collection.insertOne(docs, function(err, result) {
             console.dir(result);
         });
+        */
+       // finderを使ってみる
+       // 全てのドキュメントを表示する方法（toArrayで抽出結果を、配列にする）
+       // 結果がitemsで帰ってくる
+       // findの中身にかくと、抽出条件を指定することができる
+       // 注意点：全ての抽出結果を配列にするので、データが多いと、メモリを圧迫してしまう
+       /*
+       collection.find({name: "mizu"}).toArray(function(err, items) {
+           console.log(items);
+       });
+       */
+      // 大量のデータを返したい時には、streamを使うのが一般的
+      // streamに対して、イベントを設定できる
+      var stream = collection.find().stream();
+      // データが来た時のイベント：data
+      stream.on("data", function(item) {
+          console.log(item);
+      });
+      // データの受信が終わった時のイベント：end
+      stream.on("end", function() {
+          console.log("finished");
+      });
     })
 });
