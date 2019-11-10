@@ -8,4 +8,16 @@ var MongoClient = require('mongodb').MongoClient,
 MongoClient.connect("mongodb://"+settings.host+"/"+settings.db, function(err, db){
     if(err) { return console.dir(err); };
     console.log("connected to db");
+    // コレクションを作って、データを入れていく
+    db.collection('users', function(err, collection) {
+        var docs = [
+            {name: "mizu", score: 40},
+            {name: "kami", score: 80},
+            {name: "yuji", socre: 60}
+        ];
+        // コレクションにデータを入れる
+        collection.insert(docs, function(err, result) {
+            console.dir(result);
+        });
+    })
 });
