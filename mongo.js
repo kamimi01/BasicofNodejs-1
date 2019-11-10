@@ -25,6 +25,7 @@ MongoClient.connect("mongodb://"+settings.host+"/"+settings.db, connectOption, f
             {name: "yuji", socre: 60}
         ];
         // コレクションにデータを入れる
+        // insertOneメソッド：１つのドキュメントを挿入する
         collection.insertOne(docs, function(err, result) {
             console.dir(result);
         });
