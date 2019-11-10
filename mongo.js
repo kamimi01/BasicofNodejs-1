@@ -5,7 +5,10 @@ var MongoClient = require('mongodb').MongoClient,
 // コールバック関数（もしエラーだったら→console.dir(err)でエラー内容を表示してくれる）
 // console.dir(object{, option})とは、オブジェクトの内容を見やすく表示することができる
 // 参考：https://qiita.com/tadnakam/items/dda690bb184fdc74851f
-MongoClient.connect("mongodb://"+settings.host+"/"+settings.db, function(err, db){
+MongoClient.connect("mongodb://"+settings.host+"/"+settings.db, function(err, client){
+    // mongodb3以降は、 dbを一度定義しないといけなくなった
+    // 公式参考：https://github.com/mongodb/node-mongodb-native/blob/3.0/CHANGES_3.0.0.md
+    var db = client.db('test');
     if(err) { return console.dir(err); };
     console.log("connected to db");
     // コレクションを作って、データを入れていく
